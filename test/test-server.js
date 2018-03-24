@@ -81,7 +81,9 @@ describe('Shopping List', function() {
         // `id` to it from `res.body.id`
         expect(res.body).to.deep.equal(Object.assign(newItem, {id: res.body.id}));
       });
-  });
+  })
+
+  ;
 
   // test strategy:
   //  1. initialize some update data (we won't have an `id` yet)
@@ -140,5 +142,60 @@ describe('Shopping List', function() {
       .then(function(res) {
         expect(res).to.have.status(204);
       });
+  });
+
+  it('should list recipes on GET', function(){
+    return chai.request(app)
+      .get('/recipes')
+      .then(function(res){
+        expect(res).to.have.status(200);
+        expect(res).to.be.json;
+        expect(res.body).to.be.a('array');
+
+        const expectedKeys = ['id', 'name', 'ingredients'];
+        res.body.forEach(function(recipe) {
+          expect(recipe).to.be.a('object');
+          expect(recipe).to.include.keys(expectedKeys);
+        });
+      });
+  });
+
+  it ('should add a recipe on POST', function(){
+    const newRecipe = {name: 'Scrambled eggs', ingredients: ['eggs', 'milk']};
+    return chai.request(app)
+      .post('/recipes')
+      .send(newRecipe)
+      .then(function(res){
+        expect(res).to.have.status(201);
+        expect(res).to.be.json;
+        expect(res.body).to.be.a('object');
+        expect(res.body).to.not.equal(null)
+        expect(res.body).to.deep.equal(Object.assign(newRecipe, {id:res.body.id}));
+  	});
+   });
+
+  it ('should update a recipe on PUT', function(){
+    const updateData = {name: 'foo', ingredients: ['bar', 'foobar']};
+
+    return chai.request(app)
+      .get('/recipes')
+      .then(function(res){
+        updateData.id = res.body[0].id;
+        return chai.request(app)
+            .put(`/recipes/${updateData.id}`)
+          .send(updateData);
+  	});
+  });
+
+  it ('should delete a recipe on DELETE', function(){
+    return chai.request(app)
+      .get('/recipes')
+      .then(function(res){
+        return chai.request(app)
+        .delete(`/recipes/${res.body[0].id}`);
+      })
+      .then(function(res){
+        expect(res).to.have.status(204);
+      })
   });
 });
