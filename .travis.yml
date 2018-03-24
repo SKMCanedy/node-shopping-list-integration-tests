@@ -1,2 +1,9 @@
 language: node_js
 node_js: node
+deploy:
+  provider: heroku
+  api_key:
+    secure: Qf5I/lGFl/dDBU/Oq7MYUVZY00QgQudF7oHVQu2zjainD5nGD3Yri6eGz6HvCXQLnBWC8exbwu0V0PQ1UnTtg9YNHAqdqz5UR21Vgj8rn+RCQb0+jE0WR+Fhdn04gUvtCYW4oBHA6ATGNIec47hmqJRA+4UzmQZfs+pckvu25NOqeUtrW4X3Qf+JIe9pPfmL7ZbtvIHGEjc0tiuvQIMoWxd2KRCwI2cMFudi6Q+02KPDkSbCQF7VDL76G7UoxVDe9w8klThBFEGmsZInbKXopWoBZVP2EffkNvP/zn5f6dAqdBnXAKTbQZpWREHHs6DUjntrO5LiC+EX0S7vAdN6LyLY7it2fh5nh4/sAwfiz1Gmp1GC7DZ8F4w5E+wy9jJ20xXIyIUM+A18asdmP0ECns3ldFwTZaS4TF+4/6JoTdHk3ehSZ3BZ9HxXBZAJiPEVr9+OwtMs1MhmgAfTij067PGz67C6yYJBuJwO0tSRJE1VXR8XhhsBF1wP9rZJJ55zTZZSYu49F0yAwgHBJGWQVmLjhBB47jU5OffSo6PTX0VoHZKl20OiI5YusqcCcs2Ns4V5hdyFaRqQtDnIYyVMygY8HKxbelIw2JL6tSwWlsu0QQ7TuR9+5bFcfUyIwBZ0fadwcINMvrIH+scOdQTY4UPvCf5pQ+9Ml/WmAZ9RCA8=
+  app: ancient-wildwood-82080
+  on: 
+    repo: SKMCanedy/node-shopping-list-integration-tests
